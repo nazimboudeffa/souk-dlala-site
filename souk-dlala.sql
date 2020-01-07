@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Client :  localhost:3306
--- Généré le :  Mar 07 Janvier 2020 à 15:55
--- Version du serveur :  5.7.28-0ubuntu0.18.04.4
--- Version de PHP :  7.2.24-0ubuntu0.18.04.1
+-- Hôte : 127.0.0.1
+-- Généré le :  mar. 07 jan. 2020 à 15:57
+-- Version du serveur :  10.4.8-MariaDB
+-- Version de PHP :  7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -33,7 +35,7 @@ CREATE TABLE `active_pages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `active_pages`
+-- Déchargement des données de la table `active_pages`
 --
 
 INSERT INTO `active_pages` (`id`, `name`, `enabled`) VALUES
@@ -113,15 +115,8 @@ CREATE TABLE `cookie_law` (
   `id` int(10) UNSIGNED NOT NULL,
   `link` varchar(255) NOT NULL,
   `theme` varchar(20) NOT NULL,
-  `visibility` tinyint(1) NOT NULL DEFAULT '0'
+  `visibility` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `cookie_law`
---
-
-INSERT INTO `cookie_law` (`id`, `link`, `theme`, `visibility`) VALUES
-(1, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -138,15 +133,6 @@ CREATE TABLE `cookie_law_translations` (
   `for_id` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `cookie_law_translations`
---
-
-INSERT INTO `cookie_law_translations` (`id`, `message`, `button_text`, `learn_more`, `abbr`, `for_id`) VALUES
-(1, '', '', '', 'en', 1),
-(2, '', '', '', 'fr', 1),
-(3, '', '', '', 'ar', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -160,7 +146,7 @@ CREATE TABLE `discount_codes` (
   `amount` varchar(20) NOT NULL,
   `valid_from_date` int(10) UNSIGNED NOT NULL,
   `valid_to_date` int(10) UNSIGNED NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1-enabled, 0-disabled'
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1-enabled, 0-disabled'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -186,7 +172,7 @@ CREATE TABLE `keys` (
   `id` int(11) NOT NULL,
   `key` varchar(40) NOT NULL,
   `level` int(2) NOT NULL,
-  `ignore_limits` tinyint(1) NOT NULL DEFAULT '0',
+  `ignore_limits` tinyint(1) NOT NULL DEFAULT 0,
   `date_created` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -206,13 +192,13 @@ CREATE TABLE `languages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `languages`
+-- Déchargement des données de la table `languages`
 --
 
 INSERT INTO `languages` (`id`, `abbr`, `name`, `currency`, `currencyKey`, `flag`) VALUES
 (2, 'en', 'english', '$', 'USD', 'en.jpg'),
 (5, 'fr', 'français', '€', 'EUR', 'fr.jpg'),
-(6, 'ar', 'عربي', 'DA', 'DZD', 'dz.jpg');
+(6, 'ar', 'عربي', 'DA', 'ALL', 'dz.jpg');
 
 -- --------------------------------------------------------
 
@@ -230,9 +216,9 @@ CREATE TABLE `orders` (
   `clean_referrer` varchar(255) NOT NULL,
   `payment_type` varchar(255) NOT NULL,
   `paypal_status` varchar(10) DEFAULT NULL,
-  `processed` tinyint(1) NOT NULL DEFAULT '0',
-  `viewed` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'viewed status is change when change processed status',
-  `confirmed` tinyint(1) NOT NULL DEFAULT '0',
+  `processed` tinyint(1) NOT NULL DEFAULT 0,
+  `viewed` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'viewed status is change when change processed status',
+  `confirmed` tinyint(1) NOT NULL DEFAULT 0,
   `discount_code` varchar(20) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -267,16 +253,16 @@ CREATE TABLE `products` (
   `image` varchar(255) NOT NULL,
   `time` int(10) UNSIGNED NOT NULL COMMENT 'time created',
   `time_update` int(10) UNSIGNED NOT NULL COMMENT 'time updated',
-  `visibility` tinyint(1) NOT NULL DEFAULT '1',
+  `visibility` tinyint(1) NOT NULL DEFAULT 1,
   `shop_categorie` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT '0',
+  `quantity` int(11) NOT NULL DEFAULT 0,
   `procurement` int(10) UNSIGNED NOT NULL,
-  `in_slider` tinyint(1) NOT NULL DEFAULT '0',
+  `in_slider` tinyint(1) NOT NULL DEFAULT 0,
   `url` varchar(255) NOT NULL,
   `virtual_products` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `brand_id` int(5) DEFAULT NULL,
   `position` int(10) UNSIGNED NOT NULL,
-  `vendor_id` int(11) NOT NULL DEFAULT '0'
+  `vendor_id` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -308,7 +294,7 @@ CREATE TABLE `seo_pages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `seo_pages`
+-- Déchargement des données de la table `seo_pages`
 --
 
 INSERT INTO `seo_pages` (`id`, `name`) VALUES
@@ -395,16 +381,16 @@ CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
   `password` varchar(32) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `notify` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'notifications by email',
+  `notify` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'notifications by email',
   `last_login` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `users`
+-- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `notify`, `last_login`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'your@email.com', 0, 1578404463);
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'your@email.com', 0, 1578406186);
 
 -- --------------------------------------------------------
 
@@ -418,7 +404,7 @@ CREATE TABLE `users_public` (
   `email` varchar(255) NOT NULL,
   `phone` varchar(100) NOT NULL,
   `password` varchar(40) NOT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -434,7 +420,7 @@ CREATE TABLE `value_store` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `value_store`
+-- Déchargement des données de la table `value_store`
 --
 
 INSERT INTO `value_store` (`id`, `thekey`, `value`) VALUES
@@ -443,11 +429,11 @@ INSERT INTO `value_store` (`id`, `thekey`, `value`) VALUES
 (3, 'footercopyright', 'Powered by ECC FZE © All right reserved. '),
 (4, 'contactspage', 'Hello dear client'),
 (5, 'footerContactAddr', ''),
-(6, 'footerContactEmail', 'support@souk-dlala.com'),
+(6, 'footerContactEmail', 'support@shop.dev'),
 (7, 'footerContactPhone', ''),
 (8, 'googleMaps', '42.671840, 83.279163'),
 (9, 'footerAboutUs', ''),
-(10, 'footerSocialFacebook', 'https://www.facebook.com/Souk-Dlala-111689560354266'),
+(10, 'footerSocialFacebook', ''),
 (11, 'footerSocialTwitter', ''),
 (12, 'footerSocialGooglePlus', ''),
 (13, 'footerSocialPinterest', ''),
@@ -480,9 +466,16 @@ CREATE TABLE `vendors` (
   `url` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `vendors`
+--
+
+INSERT INTO `vendors` (`id`, `name`, `url`, `email`, `password`, `updated_at`, `created_at`) VALUES
+(1, 'test', 'test adress', 'test@test.com', '$2y$10$gQNycwv8LcW8tMg4yi1kHe7pUmkWtySg.KvuyyDUda5PkiMr2Ad/a', '2020-01-07 11:54:01', '2020-01-07 11:54:01');
 
 -- --------------------------------------------------------
 
@@ -499,9 +492,9 @@ CREATE TABLE `vendors_orders` (
   `clean_referrer` varchar(255) NOT NULL,
   `payment_type` varchar(255) NOT NULL,
   `paypal_status` varchar(10) DEFAULT NULL,
-  `processed` tinyint(1) NOT NULL DEFAULT '0',
-  `viewed` tinyint(1) NOT NULL DEFAULT '0',
-  `confirmed` tinyint(1) NOT NULL DEFAULT '0',
+  `processed` tinyint(1) NOT NULL DEFAULT 0,
+  `viewed` tinyint(1) NOT NULL DEFAULT 0,
+  `confirmed` tinyint(1) NOT NULL DEFAULT 0,
   `discount_code` varchar(20) NOT NULL,
   `vendor_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -526,7 +519,7 @@ CREATE TABLE `vendors_orders_clients` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Index pour les tables exportées
+-- Index pour les tables déchargées
 --
 
 --
@@ -702,7 +695,7 @@ ALTER TABLE `vendors_orders_clients`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
@@ -710,141 +703,170 @@ ALTER TABLE `vendors_orders_clients`
 --
 ALTER TABLE `active_pages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT pour la table `bank_accounts`
 --
 ALTER TABLE `bank_accounts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `blog_posts`
 --
 ALTER TABLE `blog_posts`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `blog_translations`
 --
 ALTER TABLE `blog_translations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `brands`
 --
 ALTER TABLE `brands`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `confirm_links`
 --
 ALTER TABLE `confirm_links`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `cookie_law`
 --
 ALTER TABLE `cookie_law`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `cookie_law_translations`
 --
 ALTER TABLE `cookie_law_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `discount_codes`
 --
 ALTER TABLE `discount_codes`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `history`
 --
 ALTER TABLE `history`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `keys`
 --
 ALTER TABLE `keys`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `languages`
 --
 ALTER TABLE `languages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT pour la table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `orders_clients`
 --
 ALTER TABLE `orders_clients`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `products`
 --
 ALTER TABLE `products`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `products_translations`
 --
 ALTER TABLE `products_translations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `seo_pages`
 --
 ALTER TABLE `seo_pages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT pour la table `seo_pages_translations`
 --
 ALTER TABLE `seo_pages_translations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `shop_categories`
 --
 ALTER TABLE `shop_categories`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `shop_categories_translations`
 --
 ALTER TABLE `shop_categories_translations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `subscribed`
 --
 ALTER TABLE `subscribed`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `textual_pages_tanslations`
 --
 ALTER TABLE `textual_pages_tanslations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT pour la table `users_public`
 --
 ALTER TABLE `users_public`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `value_store`
 --
 ALTER TABLE `value_store`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
 --
 -- AUTO_INCREMENT pour la table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT pour la table `vendors_orders`
 --
 ALTER TABLE `vendors_orders`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `vendors_orders_clients`
 --
 ALTER TABLE `vendors_orders_clients`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
